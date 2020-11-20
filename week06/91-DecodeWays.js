@@ -21,3 +21,30 @@ var numDecodings = function(s) {
     }
     return dp[n];
 };
+
+/**
+ * @param {string} s
+ * @return {number}
+ * 
+ * Time O(n)  Space: O(1)
+ */
+var numDecodings2 = function(s) {
+    if(s === null || s.length === 0 || s[0] === '0') return 0;
+    let n = s.length;
+    //  O(1) 空间 由于当前状态只依赖于前两个状态 可用2个变量来存储状态， 同理于爬楼梯的空间优化。
+    let first = 1, second = 1;
+
+    for (let i = 2; i <= n; i++) {
+        let curWays = 0;
+        
+        if (Number(s.slice(i - 1, i)) !== 0)
+            curWays += second;
+        
+        const d2 = Number(s.slice(i - 2, i))
+        if (d2 >= 10 && d2 <= 26)
+            curWays += first;
+        
+        first = second, second = curWays;
+    }
+    return second
+};
