@@ -1,15 +1,20 @@
 /**
  * @param {number[][]} grid
  * @return {number}
- * Time: O(m * n),  Space: O(m * n)
+ * Time: O(m * n),  Space: O(1)
  */
 var minPathSum = function(grid) {
     let m = grid.length, n = grid[0].length;
 
-    // 不复制直接覆盖 grid[i][j] 的值的话space可到 O(1),  但是为了不修改input
-    // 故此这里是复制后是 O(m*n)的space
+    // 不复制直接覆盖 grid[i][j] 的值的话space可到 O(1)
+    // spread operator 2维的时候是浅拷贝，此时dp中的数组仍然指向 grid中的数组，所以这也是再修改input
+    // 这么写唯一的好处就是 dp += 即可 不用加grid[i][j], 仅此一个好处。
     let dp = [...grid];
     
+    // 若循环里不想判断可先初始化成如下，把0行0列的状态初始化
+    // for (let j = 1; j < n; ++j) { dp[0][j] += dp[0][j - 1] }
+    // for (let i = 1; i < m; ++i) { dp[i][0] += dp[i - 1][0] }
+
 
     // dp[i][j] 到达当前路径的最小路径和的状态， 依赖是i,j-1 和i-1,j 故此从中选一个小的累加到当前值
     // 由于没有预先初始化 第0行 第0列要判断后累加, 或初始化可在此上加2次for 循环初始化0行0列的状态即可
