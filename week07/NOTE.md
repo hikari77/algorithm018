@@ -36,6 +36,11 @@ while forward_queue and backward_queue:
 
 
 
-+ 平衡树对比
-
++ 平衡BST对比
+    + AVL-严格平衡， 平衡因子范围-1，0，1之间，
+        + 4种旋转方式 每次插入删除都会触发自平衡操作
+        + 稳定的查找O(logN) 适合 read intensive
+    + 红黑树-近似平衡 ，用 1 bit 存储颜色
+        + 适合 write intensive，语言内置常选 Java tree map
+        + 减少了自平衡的操作 综合性能比AVL好一些
 
